@@ -1,0 +1,106 @@
+<layout name="Public:header_list" cache="0" />
+<div class="container">
+  <h3>入仓查看</h3>
+  <form action="__URL__/doAdd" method="post">
+    流水编号：<input name="ism_sn" type="text" id="ism_sn" size="20" value="<?php echo $main['ism_sn'] ?>" />&nbsp;&nbsp;
+    入货经办人：<input name="ism_operator" type="text" id="ism_operator" value="<?php echo $main['ism_operator'] ?>" size="20" />&nbsp;&nbsp;
+    联系电话：<input name="ism_phone" type="text" id="ism_phone" value="<?php echo $main['ism_phone'] ?>" size="20" />&nbsp;&nbsp;
+    买方单位：<input name="ism_buyerunit" type="text" id="ism_buyerunit" value="<?php echo $main['ism_buyerunit'] ?>" size="20" />&nbsp;&nbsp;
+    <!--<input name="" type="button" value="添加项" id="btnAdd"/>-->
+    <div class="mainbox">
+    <table width="100%" class="datalist fixwidth" id="table">
+      <tr>
+        <th width="30" style="text-align:center">序号</th>
+        <th style="text-align:center">品名</th>
+        <th style="text-align:center">类别</th>
+        <th style="text-align:center">单价</th>
+        <th style="text-align:center">数量</th>
+        <th style="text-align:center">总价</th>
+        <th style="text-align:center">仓库</th>
+        <th style="text-align:center">备注</th>
+        <!--<th style="text-align:center">操作</th>-->
+      </tr>
+      <?php foreach($list_sub as $row_sub){ ?>
+      <tr>
+        <td align='center' class='option'><?php echo $row_sub["iss_id"]; ?></td>
+        <td align='center'><input name='iss_name[]' type='text' id='iss_name' size='17' value="<?php echo $row_sub['prod_name']; ?>" /></td>
+        
+        <td align='center'>
+        <select name="iss_cate[]" disabled>
+          <option value="">--请选择--</option>
+          <?php foreach($list_cate as $row){ ?>
+            <option value="<?php echo $row["pdca_id"]; ?>" <?php if($row['pdca_id']==$row_sub['iss_cate']){echo "selected=true";}; ?>><?php echo $row["pdca_name"]; ?></option>
+          <?php } ?>
+        </select>
+        </td>
+        <td align='center'><input name='iss_price[]' type='text' id='iss_price' size='8' value="<?php echo $row_sub["iss_price"]; ?>"/></td>
+        <td align='center'><input name='iss_count[]' type='text' id='iss_count' size='8' value="<?php echo $row_sub["iss_count"]; ?>"/></td>
+        <td align='center'><input name='iss_total[]' type='text' id='iss_total' size='8' value="<?php echo $row_sub["iss_total"]; ?>"/></td>
+        <td align='center'>
+        <select name='iss_store[]' id='iss_store' disabled>
+          <?php foreach($list_store as $row_store){ ?>
+          <option value='<?php echo $row_store['sto_name']; ?>' <?php if($row_store['sto_name']==$row_sub['iss_store'])echo "selected='true'" ?>><?php echo $row_store['sto_name']; ?></option>
+          <?php } ?>
+        </select>
+        <input name='row_count[]' type='hidden' value='"+id_num+"'>
+        </td>
+        <!--<td align='center'><a href='#' name='linkDelete' onclick='deleteRow("+id_num+")'>删除</a></td>-->
+        <td align='center'>
+        <input name='iss_remark[]' type='text' id='iss_remark' size='25' value="<?php echo $row_sub["iss_remark"]; ?>"/>
+        </td>
+	  </tr>
+      <?php } ?>
+      <tr class="nobg">
+        <td></td>
+        <td class="tdpage" colspan="8"></td>
+      </tr>
+    </table>
+    </div>
+    制单：<input name="ism_writer" type="text" id="ism_writer" value="<?php echo $main['ism_writer'] ?>" size="20"/>&nbsp;&nbsp;
+    <!--<input type="submit" value="保存" />-->&nbsp;&nbsp;<input name="" type="button" value="返回"  onclick="window.history.back()"/>
+  </form>
+</div>
+
+<script>
+var id_num=0;
+var row_rank=1;
+
+function getRow(){
+	var row="<tr id='row_"+id_num+"'>"+
+			"<td align='center' class='option'>"+row_rank+"</td>"+
+			"<td align='center'><input name='iss_name[]' type='text' id='iss_name' size='17' onblur='checkName(this.value)'/></td>"+
+			"<td align='center'><input name='iss_price[]' type='text' id='iss_price' size='8' /></td>"+
+			"<td align='center'><input name='iss_count[]' type='text' id='iss_count' size='8' /></td>"+
+			"<td align='center'><input name='iss_total[]' type='text' id='iss_total' size='8' /></td>"+
+			"<td align='center'>"+
+			  "<select name='iss_store[]' id='iss_store'>"+
+			  "<?php foreach($list as $row){ ?>"+
+				"<option value='<?php echo $row['sto_name']; ?>'><?php echo $row['sto_name']; ?></option>"+
+			  "<?php } ?>"+
+			  "</select>"+
+			"</td>"+
+			"<td align='center'><input name='iss_remark[]' type='text' id='iss_remark' size='25' /></td>"+
+			"<td align='center'><a href='#' name='linkDelete' onclick='deleteRow("+id_num+")'>删除</a></td>"+
+			"<input name='row_count[]' type='hidden' value='"+id_num+"'>"+
+		  "</tr>";
+	return row;
+}
+
+$("#btnAdd").click(function(){
+	$("#table").append(getRow());
+	id_num++;
+	row_rank++;
+});
+function deleteRow(rowid){
+	$("#row_"+rowid).remove();
+	row_rank--;
+}
+function checkName(name){
+	$.get("__URL__/checkName/name/"+name,function(data){
+		if(data=="no_exist"){
+			alert("不存在此产品，请修改！");
+		}
+	});
+}
+</script>
+<layout name="Public:footer" cache="120" />

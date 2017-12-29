@@ -1,0 +1,72 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<link rel="stylesheet" href="__PUBLIC__/js/jquery/external/bootstrap.min.css">
+<link rel="stylesheet" href="http://cdn.bootcss.com/font-awesome/4.6.0/css/font-awesome.min.css" media="screen">
+<link rel="stylesheet" href="__PUBLIC__/js/jquery/external/sidebar-menu.css">
+<style type="text/css">
+.main-sidebar {
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 100%;
+	min-height: 100%;
+	width: 160px;
+	z-index: 810;
+	background-color: #222d32;
+}
+</style>
+</head>
+<body>
+	<aside class="main-sidebar"> <section class="sidebar">
+	<ul class="sidebar-menu">
+		<li class="header">主导航</li>
+		<li class="treeview"><a href="__MODULE__/Index/main" target="main"><i class="fa fa-home"></i><span>首页</span></a></li>
+		<li class="treeview"><a href="#"><span>入库</span> <i class="fa fa-angle-right pull-right"></i> </a>
+			<ul class="treeview-menu" style="display: none;">
+				<li><a href="__MODULE__/Instore/add" target="main"> 入库登记</a></li>
+				<li><a href="__MODULE__/Instore/index" target="main"> 入库列表</a></li>
+			</ul>
+		</li>
+		<li><a href="#"><span>出库</span> <i class="fa fa-angle-right pull-right"></i> </a>
+			<ul class="treeview-menu" style="display: none;">
+				<li><a href="__MODULE__/Outstore/add" target="main"> 出库登记</a></li>
+				<li><a href="__MODULE__/Outstore/index" target="main"> 出库列表</a></li>
+			</ul>
+		</li>
+		<li class="treeview"><a href="#"> <span>仓库库存</span> <i class="fa fa-angle-right pull-right"></i></a>
+			<ul class="treeview-menu" style="display: none;">
+				<li><a href="__MODULE__/StockManage/stats" target="main"> 库存管理</a></li>
+			</ul>
+		</li>
+		<li class="treeview"><a href="__MODULE__/BaseData/index" target="main"> <span>基础信息</span> <i class="fa fa-angle-right pull-right"></i></a>
+			<ul class="treeview-menu" style="display: none;">
+				<li><a href="__MODULE__/BaseData/product" target="main"> 产品管理</a></li>
+				<li><a href="__MODULE__/BaseData/cate" target="main"> 产品类别管理</a></li>
+				<li><a href="__MODULE__/BaseData/supplier" target="main"> 供应商管理</a></li>
+				<li><a href="__MODULE__/BaseData/customer" target="main"> 客户管理</a></li>
+				<li><a href="__MODULE__/BaseData/store" target="main"> 仓库管理</a></li>
+				<li><a href="__MODULE__/BaseData/employee" target="main"> 员工管理</a></li>
+			</ul>
+		</li>
+		<li class="treeview"><a href="__MODULE__/Setting/index" target="main"> <span>系统设置</span> <i class="fa fa-angle-right pull-right"></i></a>
+			<ul class="treeview-menu" style="display: none;">
+				<li><a href="__MODULE__/Setting/personal" target="main"> 个人设置</a></li>
+				<li><a href="__MODULE__/Setting/show" target="main"> 列表设置</a></li>
+				<li><a href="__MODULE__/UserManage/index" target="main"> 用户管理</a></li>
+				<li><a href="__MODULE__/NoticeManage/index" target="main"> 通知管理</a></li>
+				<li><a href="__MODULE__/Backup/index" target="main"> 数据备份</a></li>
+				<li><a href="__MODULE__/Log/index" target="main"> 操作日志</a></li>
+			</ul>
+		</li>
+	</ul>
+	</section> </aside>
+</body>
+</html>
+<script src="__PUBLIC__/js/jquery/jquery-2.1.1.min.js"></script>
+<script src="__PUBLIC__/js/jquery/external/sidebar-menu.js"></script>
+<script>
+	$.sidebarMenu($('.sidebar-menu'))
+</script>

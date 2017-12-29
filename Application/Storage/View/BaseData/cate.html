@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<css href="__PUBLIC__/css/admincp.css" />
+<css href="__PUBLIC__/css/pages.css" />
+
+<!-- Jquery -->
+<css href="__PUBLIC__/js/jquery-ui-1.12.1.custom/jquery-ui.css" />
+<js href="__PUBLIC__/js/jquery-ui-1.12.1.custom/external/jquery/jquery.js" />
+<js href="__PUBLIC__/js/jquery-ui-1.12.1.custom/jquery-ui.js" />
+<!-- Jquery -->
+
+</head>
+<body>
+  <input type="button"  class="btn" id="button" value="添加类别" onclick="toAddCate()"/>
+  <div class="mainbox">
+      <table width="100%" class="datalist fixwidth">
+        <tr>
+          <th>名称</th>
+          <th>操作</th>
+        </tr>
+        <foreach name="list" item="row" >
+        <tr>
+          <td align="center">{$row["pdca_name"]}</td>
+          <td align="center"><a href="#" onclick='toEditCate({$row["pdca_id"]})'>编辑</a>&nbsp;&nbsp;<a href="#" onclick='del({$row["pdca_id"]})'>删除</a></td>
+        </tr>
+        </foreach>
+        <tr class="nobg">
+          <td colspan="7" align="center"><div class="pages">{$page}</div></td>
+        </tr>
+      </table>
+  </div>
+  <div id="dialogCate" style="display:none">
+    <br><br>
+    <table width="100%" border="0" align="left" class="p_table2">
+      <tr>
+        <td width="35%" height="30" align="right">名称： </td>
+        <td width="168" align="left"><input name="pdca_name" type="text" id="pdca_name" size="20" value="{$one['pdca_name']}"/></td>
+      </tr>
+    </table>
+  </div>
+<js href="__PUBLIC__/js/tpl/basedata_cate.js" />
+</body>
+</html>

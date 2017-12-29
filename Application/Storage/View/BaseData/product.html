@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<css href="__PUBLIC__/css/admincp.css" />
+<css href="__PUBLIC__/css/pages.css" />
+
+<!-- Jquery -->
+<css href="__PUBLIC__/js/jquery-ui-1.12.1.custom/jquery-ui.css" />
+<js href="__PUBLIC__/js/jquery-ui-1.12.1.custom/external/jquery/jquery.js" />
+<js href="__PUBLIC__/js/jquery-ui-1.12.1.custom/jquery-ui.js" />
+<!-- Jquery -->
+</head>
+<body>
+  <input type="button"  class="btn" id="button" value="添加产品" onclick="toAddProduct()"/>
+  <div class="mainbox">
+    <form action="" method="post">
+      <table class="datalist fixwidth">
+        <tr>
+          <th>名称</th>
+          <th>产品类别</th>
+          <th>单价</th>
+          <th>操作</th>
+        </tr>
+        <foreach name="list" item="row" >
+        <tr>
+          <td align="center">{$row["prod_name"]}</td>
+          <td align="center">{$row["pdca_name"]}</td>
+          <td align="center">{$row["prod_price"]}</td>
+          <td align="center"><a href="#" onclick='toEditProduct({$row["prod_id"]})'>编辑</a>&nbsp;&nbsp;<a href="#" onclick='del({$row["prod_id"]})'>删除</a></td>
+        </tr>
+        </foreach>
+        <tr class="nobg">
+          <td colspan="7" align="center"><div class="pages">{$page}</div></td>
+        </tr>
+      </table>
+    </form>
+  </div>
+  <div id="dialogProduct" style="display:none">
+    <br><br>
+    <table width="100%" border="0" align="left" class="p_table2">
+      <tr>
+        <td width="35%" height="30" align="right">名称： </td>
+        <td width="168" align="left"><input name="prod_name" type="text" id="prod_name" size="20" value="<?php echo $one['prod_name']; ?>"/></td>
+      </tr>
+      <tr>
+        <td height="30" align="right">类别： </td>
+        <td align="left">
+        <select name="prod_cate" id="prod_cate">
+          <option value="0">--请选择--</option>
+          <option value="-1" style="font-style:italic; font-weight:bold">添加产品类别</option>
+          <?php foreach($list_cate as $row){ ?>
+            <option value="{$row['pdca_id']}" <?php if($row['pdca_id']==$one['prod_cate']){echo "selected=true";}; ?>><?php echo $row['pdca_name']; ?></option>
+          <?php } ?>
+        </select>
+        </td>
+      </tr>
+      <tr>
+        <td height="30" align="right">单价： </td>
+        <td align="left"><input name="prod_price" type="text" id="prod_price" size="20" value="<?php echo $one['prod_price']; ?>"/></td>
+      </tr>
+    </table>
+  </div>
+<js href="__PUBLIC__/js/tpl/basedata_product.js"/>
+</body>
+</html>

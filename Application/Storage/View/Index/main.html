@@ -1,0 +1,189 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<css href="__PUBLIC__/css/admincp.css" />
+
+<!-- Jquery -->
+<css href="__PUBLIC__/js/jquery-ui-1.12.1.custom/jquery-ui.css" />
+<js href="__PUBLIC__/js/jquery-ui-1.12.1.custom/external/jquery/jquery.js" />
+<js href="__PUBLIC__/js/jquery-ui-1.12.1.custom/jquery-ui.js" />
+<!-- Jquery -->
+
+<!--line-->
+<js href="__PUBLIC__/js/Highcharts-5.0.12/highcharts.js"/>
+<js href="__PUBLIC__/js/Highcharts-5.0.12/highcharts-3d.js"/>
+<js href="__PUBLIC__/js/Highcharts-5.0.12/modules/exporting.js"/>
+<!--line-->
+
+<style type="text/css">
+body {
+	padding: 15px 0px 0px 35px;
+}
+
+.title_main {
+	font-size: 14px;
+	font-weight: bold;
+	border-bottom: 2px solid #B5CFD9;
+	padding: 5px 0px 0px 10px;
+	text-align: left;
+}
+
+.title_sub {
+	font-weight: bold;
+}
+
+td {
+	line-height: 30px;
+}
+
+.text_line td {
+	border-top: dotted thin #D9CFB5
+}
+
+.frame {
+	margin-bottom: 10px;
+}
+</style>
+</head>
+<body>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0">
+		<tr>
+			<td width="50%" align="left" valign="top"><table class="frame"
+					width="95%" border="0" cellspacing="0" cellpadding="0">
+					<tr>
+						<td colspan="2" class="title_main">七天出入库数量曲线图</td>
+					</tr>
+					<tr class="text_line">
+						<td colspan="2" align="left" id="container1">&nbsp;</td>
+					</tr>
+				</table>
+				<table class="frame" width="95%" border="0" cellspacing="0"
+					cellpadding="0">
+					<tr>
+						<td colspan="2" class="title_main">七天出入库金额曲线图</td>
+					</tr>
+					<tr class="text_line">
+						<td colspan="2" align="left" id="container2">&nbsp;</td>
+					</tr>
+				</table>
+				<table class="frame" width="95%" border="0" cellspacing="0"
+					cellpadding="0">
+					<tr>
+						<td colspan="2" class="title_main">出入库比例图</td>
+					</tr>
+					<tr class="text_line">
+						<td width="50%" align="left" id="container4">&nbsp;</td>
+						<td align="left" id="container3">&nbsp;</td>
+					</tr>
+				</table></td>
+			<td align="left" valign="top"><table class="frame" width="95%"
+					border="0" cellspacing="0" cellpadding="0">
+					<tr>
+						<td class="title_main">通知</td>
+					</tr>
+					 <foreach name="list_notice" item="row" key="k">
+					 	<tr class="text_line">
+							<td align="left" valign="top">
+								{$k+1}、&nbsp;&nbsp;<a href="#"
+								onclick="noticeView({$row['ntc_id']})"> <?php echo msubstr($row["ntc_title"],0,50,'UTF-8',false); ?>
+							</a>&nbsp;&nbsp;&nbsp;&nbsp;[<?php echo msubstr($row["ntc_author"],0,35,'UTF-8',false); ?>@<?php echo msubstr($row["ntc_datetime"],0,10,'UTF-8',false); ?>]
+							</td>
+						</tr>
+					 </foreach>
+				</table>
+				<table class="frame" width="95%" border="0" cellspacing="0"
+					cellpadding="0">
+					<tr>
+						<td colspan="6" class="title_main">出入库统计</td>
+					</tr>
+					<tr class="text_line">
+						<td align="right">入库总量：</td>
+						<td align="left">{$instore_count["count"]}</td>
+						<td align="right">本月入库总量：</td>
+						<td align="left">{$instore_month["count"]}</td>
+						<td align="right">今日入库量：</td>
+						<td align="left">{$instore_toady_count["count"]}</td>
+					</tr>
+					<tr class="text_line">
+						<td align="right">入库总金额：</td>
+						<td align="left">{$instore_count["total"]}</td>
+						<td align="right">本月入库金额：</td>
+						<td align="left">{$instore_month["total"]}</td>
+						<td align="right">今日入库金额：</td>
+						<td align="left">{$instore_toady_count["total"]}</td>
+					</tr>
+					<tr class="text_line">
+						<td align="right">出库总量：</td>
+						<td align="left">{$outstore_count["count"]}</td>
+						<td align="right">本月出库量：</td>
+						<td align="left">{$outstore_month["count"]}</td>
+						<td align="right">今日出库量：</td>
+						<td align="left">{$outstore_today_count["count"]}</td>
+					</tr>
+					<tr class="text_line">
+						<td align="right">出库总金额：</td>
+						<td align="left">{$outstore_count["total"]}</td>
+						<td align="right">本月出库金额：</td>
+						<td align="left">{$outstore_month["total"]}</td>
+						<td align="right">今日出库金额：</td>
+						<td align="left">{$outstore_today_count["total"]}</td>
+					</tr>
+				</table>
+				<table class="frame" width="95%" border="0" cellspacing="0"
+					cellpadding="0">
+					<tr>
+						<td colspan="2" class="title_main">版本信息</td>
+					</tr>
+					<tr class="text_line">
+						<td colspan="2" align="left">
+							<?php echo $version1; ?>
+						</td>
+					</tr>
+				</table></td>
+		</tr>
+	</table>
+	<div id="dialog" style="display: none">
+		<br />
+		<table width="100%" border="0" align="left" class="p_table2">
+			<tr>
+				<td width="13%" height="30" align="right">标题：</td>
+				<td align="left"><textarea name="ntc_title" cols="85" rows="3"
+						readonly="readonly" id="ntc_title"></textarea></td>
+			</tr>
+			<tr>
+				<td height="30" align="right">内容：</td>
+				<td align="left"><textarea name="ntc_content" cols="85"
+						rows="9" readonly="readonly" id="ntc_content"></textarea></td>
+			</tr>
+			<tr>
+				<td height="30" align="right">发布人：</td>
+				<td align="left"><input name="ntc_author" type="text"
+					id="ntc_author" size="20" readonly="readonly" /></td>
+			</tr>
+		</table>
+	</div>
+	<div id="dialogNoData" style="display: none">
+		<br />
+		<table width="100%" border="0" align="left" class="p_table2">
+			<tr>
+				<td align="left" id='msg'></td>
+			</tr>
+		</table>
+	</div>
+</body>
+</html>
+<script language="JavaScript" type="text/javascript">
+var url='__URL__';
+var line_cate={$line_cate};
+var line_count_in={$line_count_in};
+var line_count_out={$line_count_out};
+var line_total_in={$line_total_in};
+var line_total_out={$line_total_out};
+var pie_out_total={$outstore_count['total']};
+var pie_in_total={$instore_count['total']};
+var pie_out_count={$outstore_count['count']};
+var pie_in_count={$instore_count['count']};
+</script>
+<js href="__PUBLIC__/js/tpl/index_main.js"/>
